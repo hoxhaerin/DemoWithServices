@@ -1,0 +1,8 @@
+C:\Users\hoxha\source\repos\Demo\Demo.Core\bin\Debug\netcoreapp3.1\Demo.Core.deps.json
+C:\Users\hoxha\source\repos\Demo\Demo.Core\bin\Debug\netcoreapp3.1\Demo.Core.dll
+C:\Users\hoxha\source\repos\Demo\Demo.Core\bin\Debug\netcoreapp3.1\Demo.Core.pdb
+C:\Users\hoxha\source\repos\Demo\Demo.Core\obj\Debug\netcoreapp3.1\Demo.Core.csproj.CoreCompileInputs.cache
+C:\Users\hoxha\source\repos\Demo\Demo.Core\obj\Debug\netcoreapp3.1\Demo.Core.AssemblyInfoInputs.cache
+C:\Users\hoxha\source\repos\Demo\Demo.Core\obj\Debug\netcoreapp3.1\Demo.Core.AssemblyInfo.cs
+C:\Users\hoxha\source\repos\Demo\Demo.Core\obj\Debug\netcoreapp3.1\Demo.Core.dll
+C:\Users\hoxha\source\repos\Demo\Demo.Core\obj\Debug\netcoreapp3.1\Demo.Core.pdb
