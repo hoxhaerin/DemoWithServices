@@ -4,31 +4,6 @@
         <name>Demo.Web</name>
     </assembly>
     <members>
-        <member name="T:Demo.Web.Controllers.OrdersController">
-            <summary>
-            Products endpoint.
-            </summary>
-        </member>
-        <member name="M:Demo.Web.Controllers.OrdersController.#ctor(Demo.Core.Services.Orders.IOrderService,AutoMapper.IMapper)">
-            <summary>
-            Ctor.
-            </summary>
-        </member>
-        <member name="M:Demo.Web.Controllers.OrdersController.ListAsync(System.Threading.CancellationToken)">
-            <summary>
-            Lists all existing orders.
-            </summary>
-            <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
-            <returns>List of products.</returns>
-        </member>
-        <member name="M:Demo.Web.Controllers.OrdersController.PostAsync(Demo.Core.Services.Orders.CreateOrderRequest,System.Threading.CancellationToken)">
-            <summary>
-            Saves a new order.
-            </summary>
-            <param name="resource">Order data.</param>
-            <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
-            <returns>Response for the request.</returns>
-        </member>
         <member name="T:Demo.Web.Controllers.ProductsController">
             <summary>
             Products endpoint.
