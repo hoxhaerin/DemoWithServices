@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Demo.Core.Services.Products
+namespace Demo.Services.Products
 {
     public interface IProductService
     {

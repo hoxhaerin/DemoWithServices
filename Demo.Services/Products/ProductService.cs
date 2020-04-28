@@ -6,21 +6,19 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Demo.Core.Data;
-using Demo.Core.Domain.Customers;
 using Demo.Core.Domain.Products;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 
-namespace Demo.Core.Services.Products
+namespace Demo.Services.Products
 {
     public class ProductService : IProductService
     {
-        private readonly IDbContext _context;
+        private readonly IRepository<Product> _products;
         private readonly IConfigurationProvider _configurationProvider;
 
-        public ProductService(IDbContext context, IConfigurationProvider configurationProvider)
+        public ProductService(IRepository<Product> products, IConfigurationProvider configurationProvider)
         {
-            _context = context;
+            _products = products;
             _configurationProvider = configurationProvider;
         }
 
@@ -33,7 +31,7 @@ namespace Demo.Core.Services.Products
         /// <returns></returns>
         public async Task<IList<ProductModel>> GetListAsync(int pageIndex = 0, int pageSize = 10, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var list = await _context.TableReadonly<Product>()
+            var list = await _products.TableNoTracking
                 .ProjectTo<ProductModel>(_configurationProvider)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
@@ -43,7 +41,7 @@ namespace Demo.Core.Services.Products
         }
 
        /// <summary>
-       /// Creates a product.
+       /// Creates a product. feature
        /// </summary>
        /// <param name="request"></param>
        /// <param name="cancellationToken"></param>
@@ -58,8 +56,7 @@ namespace Demo.Core.Services.Products
                 Price = request.Price
             };
 
-            await _context.Set<Product>().AddAsync(entity, cancellationToken);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _products.InsertAsync(entity, cancellationToken);
         }
 
         /// <summary>
@@ -82,8 +79,7 @@ namespace Demo.Core.Services.Products
                 Price = request.Price
             };
 
-            _context.Set<Product>().Update(entity);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _products.UpdateAsync(entity, cancellationToken);
         }
 
         /// <summary>
@@ -94,12 +90,11 @@ namespace Demo.Core.Services.Products
         /// <returns></returns>
         public async Task DeleteProductAsync(Guid productId, CancellationToken cancellationToken = default)
         {
-            var entity = await _context.Set<Product>()
+            var entity = await _products.Table
                 .FirstOrDefaultAsync(p => p.Id == productId, cancellationToken);
 
             // remove
-            _context.Set<Product>().Remove(entity);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _products.DeleteAsync(entity, cancellationToken);
         }
     }
 }

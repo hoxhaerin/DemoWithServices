@@ -1,9 +1,6 @@
-﻿using System;
-using System.Data;
-using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
 
-namespace Demo.Core.Services.Products
+namespace Demo.Services.Products
 {
     /// <summary>
     /// Represents a request to update a product.
@@ -31,7 +28,7 @@ namespace Demo.Core.Services.Products
             {
                 RuleFor(m => m.Name).NotEmpty();
                 RuleFor(m => m.Description).NotEmpty();
-                RuleFor(m => m.Price).NotEmpty();
+                RuleFor(m => m.Price).NotNull();
             }
         }
 
@@ -64,7 +61,7 @@ namespace Demo.Core.Services.Products
             {
                 RuleFor(m => m.Name).NotEmpty();
                 RuleFor(m => m.Description).NotEmpty();
-                RuleFor(m => m.Price).NotEmpty();
+                RuleFor(m => m.Price).NotNull();
             }
         }
     }

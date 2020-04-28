@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
-using Demo.Core.Domain.Products;
-using Demo.Core.Infrastructure;
-using Demo.Core.Services.Products;
+using Demo.Services.Products;
+using Demo.Web.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace Demo.Web.Controllers
 {
@@ -52,11 +49,9 @@ namespace Demo.Web.Controllers
         /// <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
         /// <returns>Response for the request.</returns>
         [HttpPost]
-        [ProducesResponseType(201)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
         public async Task<IActionResult> PostAsync([FromBody] CreateProductRequest resource, CancellationToken cancellationToken = default)
         {
-
             try
             {
                 await _productService.CreateProductAsync(resource, cancellationToken);
@@ -77,7 +72,6 @@ namespace Demo.Web.Controllers
         /// <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
         /// <returns>Response for the request.</returns>
         [HttpPut("{id}")]
-        [ProducesResponseType( 201)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
         public async Task<IActionResult> PutAsync(Guid id, [FromBody] UpdateProductRequest resource, CancellationToken cancellationToken = default)
         {
@@ -100,7 +94,6 @@ namespace Demo.Web.Controllers
         /// <param name="cancellationToken">A token to observe while waiting for the task to complete.</param>
         /// <returns>Response for the request.</returns>
         [HttpDelete("{id}")]
-        [ProducesResponseType(200)]
         [ProducesResponseType(typeof(ErrorResource), 400)]
         public async Task<IActionResult> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {

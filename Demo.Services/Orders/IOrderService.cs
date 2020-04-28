@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Demo.Core.Services.Orders
+namespace Demo.Services.Orders
 {
     public interface IOrderService
     {

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Demo.Core.Domain.Orders;
 
-namespace Demo.Core.Services.Orders
+namespace Demo.Services.Orders
 {
     public class OrderModel : BaseModel
     {
