@@ -41,7 +41,7 @@ namespace Demo.Services.Products
         }
 
        /// <summary>
-       /// Creates a product.
+       /// Creates a product. feature
        /// </summary>
        /// <param name="request"></param>
        /// <param name="cancellationToken"></param>
