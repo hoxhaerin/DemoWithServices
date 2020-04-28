@@ -124,7 +124,12 @@ namespace Demo.Core.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(14, 4)");
 
+                    b.Property<Guid?>("ProductCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Product");
 
@@ -143,6 +148,20 @@ namespace Demo.Core.Migrations
                             Name = "Banana",
                             Price = 20m
                         });
+                });
+
+            modelBuilder.Entity("Demo.Core.Domain.Products.ProductCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("Demo.Core.Domain.Orders.Order", b =>
@@ -164,6 +183,14 @@ namespace Demo.Core.Migrations
                     b.HasOne("Demo.Core.Domain.Products.Product", "Product")
                         .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("Demo.Core.Domain.Products.Product", b =>
+                {
+                    b.HasOne("Demo.Core.Domain.Products.ProductCategory", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618

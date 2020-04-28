@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Demo.Core.Data;
 using Demo.Core.Data.Mapping;
 using Demo.Core.Domain.Orders;
@@ -27,6 +28,10 @@ namespace Demo.Core.Domain.Products
         /// </summary>
         public decimal Price { get; set; }
 
+        public Guid? ProductCategoryId { get; set; }
+
+        public virtual ProductCategory Category { get; set; }
+
         /// <summary>
         /// Gets or sets the order items.
         /// </summary>
@@ -45,7 +50,12 @@ namespace Demo.Core.Domain.Products
                 builder.Property(m => m.Name).IsRequired();
                 builder.Property(m => m.Description).IsRequired();
                 builder.Property(m => m.Price).IsRequired().HasColumnType("decimal(14, 4)");
-                
+
+                builder.HasOne(m => m.Category)
+                    .WithMany(m => m.Products)
+                    .HasForeignKey(m => m.ProductCategoryId)
+                    .OnDelete(DeleteBehavior.SetNull);
+
                 base.Configure(builder);
             }
 
@@ -55,7 +65,7 @@ namespace Demo.Core.Domain.Products
                     Seeds.Products.Apple,
                     Seeds.Products.Banana
                     );
-                
+
                 base.PostConfigure(builder);
             }
         }

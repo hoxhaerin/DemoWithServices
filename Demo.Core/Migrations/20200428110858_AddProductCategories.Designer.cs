@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Demo.Core.Migrations
 {
     [DbContext(typeof(EfDbContext))]
-    [Migration("20200428092215_Initial")]
-    partial class Initial
+    [Migration("20200428110858_AddProductCategories")]
+    partial class AddProductCategories
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -126,9 +126,44 @@ namespace Demo.Core.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(14, 4)");
 
+                    b.Property<Guid?>("ProductCategoryId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductCategoryId");
+
                     b.ToTable("Product");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("5c38b90b-f5a6-4f74-9eb9-3b9bdf1ae3d1"),
+                            Description = "An apple is a sweet, edible fruit produced by an apple tree. Apple trees are cultivated worldwide and are the most widely grown species in the genus Malus. The tree originated in Central Asia, where its wild ancestor, Malus sieversii, is still found today.",
+                            Name = "Apple",
+                            Price = 15m
+                        },
+                        new
+                        {
+                            Id = new Guid("e4d7c33e-977f-4c8b-8129-dcecb158ce46"),
+                            Description = "A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called \"plantains\", distinguishing them from dessert bananas.",
+                            Name = "Banana",
+                            Price = 20m
+                        });
+                });
+
+            modelBuilder.Entity("Demo.Core.Domain.Products.ProductCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCategory");
                 });
 
             modelBuilder.Entity("Demo.Core.Domain.Orders.Order", b =>
@@ -150,6 +185,14 @@ namespace Demo.Core.Migrations
                     b.HasOne("Demo.Core.Domain.Products.Product", "Product")
                         .WithMany("OrderItems")
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("Demo.Core.Domain.Products.Product", b =>
+                {
+                    b.HasOne("Demo.Core.Domain.Products.ProductCategory", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618

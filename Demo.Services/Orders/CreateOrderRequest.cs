@@ -17,7 +17,7 @@ namespace Demo.Services.Orders
             {
                 RuleFor(m => m.Email)
                     //.NotEmpty()
-                    .EmailAddress();
+                    .EmailAddress().WithMessage("Emaili nuk eshte i sakte");
                 RuleFor(m => m.Items).NotNull().NotEmpty();
             }
         }
