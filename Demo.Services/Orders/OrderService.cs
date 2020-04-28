@@ -8,23 +8,36 @@ using AutoMapper.QueryableExtensions;
 using Demo.Core.Data;
 using Demo.Core.Domain.Orders;
 using Demo.Core.Domain.Products;
-using Demo.Core.Services.Authentication;
-using Demo.Core.Services.Products;
+using Demo.Services.Authentication;
 using Microsoft.EntityFrameworkCore;
 
-namespace Demo.Core.Services.Orders
+namespace Demo.Services.Orders
 {
     public class OrderService : IOrderService
     {
-        private readonly IDbContext _context;
         private readonly IAuthenticationService _authenticationService;
         private readonly IConfigurationProvider _configurationProvider;
 
-        public OrderService(IDbContext context, IAuthenticationService authenticationService, IConfigurationProvider configurationProvider)
+        private readonly IDbContext _context;
+        private readonly IRepository<Order> _orders;
+        private readonly IRepository<OrderItem> _orderItems;
+        private readonly IRepository<Product> _products;
+
+        public OrderService(
+            IAuthenticationService authenticationService,
+            IConfigurationProvider configurationProvider,
+            IDbContext context,
+            IRepository<Order> orders,
+            IRepository<OrderItem> orderItems,
+            IRepository<Product> products)
         {
-            _context = context;
             _authenticationService = authenticationService;
             _configurationProvider = configurationProvider;
+
+            _context = context;
+            _orders = orders;
+            _orderItems = orderItems;
+            _products = products;
         }
 
         /// <summary>
@@ -41,7 +54,7 @@ namespace Demo.Core.Services.Orders
             CancellationToken cancellationToken = default)
         {
 
-            var query = _context.TableReadonly<Order>()
+            var query = _orders.TableNoTracking
                 .Include(o => o.OrderItems).AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(email))
@@ -71,6 +84,9 @@ namespace Demo.Core.Services.Orders
         /// <returns></returns>
         public async Task CreateOrderAsync(CreateOrderRequest request, CancellationToken cancellationToken = default)
         {
+            // do not save automatically
+            _orders.AutoSaveChanges = false;
+
             // create order
             var order = new Order
             {
@@ -98,7 +114,7 @@ namespace Demo.Core.Services.Orders
                 throw new Exception("No items in order.");
 
             // insert order
-            await _context.Set<Order>().AddAsync(order, cancellationToken);
+            await _orders.InsertAsync(order, cancellationToken);
 
             // add all items to the context
             foreach (var requestItem in request.Items)
@@ -116,14 +132,14 @@ namespace Demo.Core.Services.Orders
                 }
                 else
                 {
-                    var product = await _context.TableReadonly<Product>()
+                    var product = await _products.TableNoTracking
                         .FirstOrDefaultAsync(p => p.Id == requestItem.ProductId, cancellationToken: cancellationToken);
 
                     entityOrderItem.Name = product.Name;
                     entityOrderItem.Amount = product.Price;
                 }
 
-                await _context.Set<OrderItem>().AddAsync(entityOrderItem, cancellationToken);
+                await _orderItems.InsertAsync(entityOrderItem, cancellationToken);
             }
 
             // save changes

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Demo.Core
+namespace Demo.Services
 {
     /// <summary>
     /// Base class for entities.

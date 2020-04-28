@@ -48,6 +48,16 @@ namespace Demo.Core.Domain.Products
                 
                 base.Configure(builder);
             }
+
+            protected override void PostConfigure(EntityTypeBuilder<Product> builder)
+            {
+                builder.HasData(
+                    Seeds.Products.Apple,
+                    Seeds.Products.Banana
+                    );
+                
+                base.PostConfigure(builder);
+            }
         }
     }
 }

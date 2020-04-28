@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Demo.Core.Infrastructure
+namespace Demo.Web.Infrastructure
 {
     public class ErrorResource
     {

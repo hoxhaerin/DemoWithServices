@@ -1,4 +1,4 @@
-﻿namespace Demo.Core.Services.Orders
+﻿namespace Demo.Services.Orders
 {
     public class OrderItemModel : BaseModel
     {

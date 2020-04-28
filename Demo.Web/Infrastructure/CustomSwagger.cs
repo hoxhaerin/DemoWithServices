@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
-namespace Demo.Core.Infrastructure
+namespace Demo.Web.Infrastructure
 {
     public static class MiddlewareExtensions
     {

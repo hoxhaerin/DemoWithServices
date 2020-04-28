@@ -1,4 +1,4 @@
-﻿namespace Demo.Core.Services.Products
+﻿namespace Demo.Services.Products
 {
     /// <summary>
     /// Represents a product model.

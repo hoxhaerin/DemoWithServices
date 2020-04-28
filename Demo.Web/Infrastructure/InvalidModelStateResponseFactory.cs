@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Demo.Core.Infrastructure
+namespace Demo.Web.Infrastructure
 {
     public static class InvalidModelStateResponseFactory
     {

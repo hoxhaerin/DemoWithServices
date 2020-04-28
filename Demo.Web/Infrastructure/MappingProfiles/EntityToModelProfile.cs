@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Demo.Core.Domain.Orders;
 using Demo.Core.Domain.Products;
-using Demo.Core.Services.Orders;
-using Demo.Core.Services.Products;
+using Demo.Services.Orders;
+using Demo.Services.Products;
 
-namespace Demo.Core.Infrastructure.MappingProfiles
+namespace Demo.Web.Infrastructure.MappingProfiles
 {
     public class EntityToModelProfile : Profile
     {

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Demo.Core.Domain.Customers;
 
-namespace Demo.Core.Services.Authentication
+namespace Demo.Services.Authentication
 {
     /// <summary>
     /// Base service interface to handle authentication.

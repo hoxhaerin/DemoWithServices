@@ -4,10 +4,6 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\Customers\" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="9.0.0" />
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
@@ -16,6 +12,7 @@
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.3" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.3" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.5.0" />
 	</ItemGroup>
